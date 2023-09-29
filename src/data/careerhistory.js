@@ -1,4 +1,4 @@
-const experience = [
+const career = [
         {
             "id": 2,
             "company": "Accenture",
@@ -35,7 +35,6 @@ const experience = [
             "Experience": [
                 {
                     "title" : "Analyst",
-                    "industry": "Insurance",
                     "accomplishments": [
                        "point 1",
                        "point 2",
@@ -46,4 +45,4 @@ const experience = [
         }
     ];
 
-export default experience;
+export default career;

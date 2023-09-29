@@ -13,6 +13,12 @@ class Nav extends Component {
                     <li>
                         <Link to="/resume/">Resume</Link>
                     </li>
+                    <li>
+                        <Link to="/education/">Education</Link>
+                    </li>
+                    <li>
+                        <Link to="/skills/">Skills</Link>
+                    </li>
                 </ul>
             </nav>
         )

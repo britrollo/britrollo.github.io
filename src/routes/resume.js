@@ -1,9 +1,9 @@
-import Resume from "../components/Resume";
+import Career from "../components/Career/Career";
 
-export default function ResumeRoot() {
+export default function ResumeRoute() {
     return (
         <>
-            <Resume />
+            <Career />
         </>
     );
 }  
