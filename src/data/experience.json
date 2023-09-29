@@ -1,0 +1,43 @@
+{
+    "Experience": [
+        {
+            "company": "Accenture",
+            "start": "August 2020",
+            "Experience": [
+                {
+                    "title" : "Analyst",
+                    "industry": "Insurance",
+                    "accomplishments": [
+                       "point 1",
+                       "point 2",
+                       "point 3"
+                    ]
+                },
+                {
+                    "title" : "Analyst",
+                    "industry": "Insurance",
+                    "accomplishments": [
+                       "point 1",
+                       "point 2",
+                       "point 3"
+                    ]
+                }
+            ]
+        }, 
+        {
+            "company": "Other",
+            "start": "August 2020",
+            "Experience": [
+                {
+                    "title" : "Analyst",
+                    "industry": "Insurance",
+                    "accomplishments": [
+                       "point 1",
+                       "point 2",
+                       "point 3"
+                    ]
+                }
+            ]
+        }
+    ]
+}
