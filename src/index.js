@@ -5,7 +5,7 @@ import ErrorPage from "./routes/error-page.js";
 import ResumeRoute from "./routes/resume.js";
 import EducationRoute from './routes/education';
 import SkillsRoute from './routes/skills';
-// import reportWebVitals from './reportWebVitals';
+// import reportWebVitals from './reportWebVitals'; 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
