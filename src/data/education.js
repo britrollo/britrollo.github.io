@@ -1,5 +1,4 @@
-{
-    "Education": [ {
+const education =  [ {
         "degree": "Bachelors of Science, Computer Science",
         "minor": "Literature",
         "school": "Stevens Institute of Technology",
@@ -11,5 +10,6 @@
         "school": "Stevens Institute of Technology",
         "start": "January 2019",
         "end": "January 2020" 
-    }]
-}
+    }];
+
+export default education;

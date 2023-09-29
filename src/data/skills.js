@@ -1,5 +1,4 @@
-{
-    "skills": [
+const skills = [
         {
             "category": "Programming Languages",
             "items": [
@@ -35,5 +34,6 @@
                 "SoapUI"
             ]
         }
-    ]
-}
+    ];
+
+export default skills;

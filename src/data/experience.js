@@ -1,8 +1,10 @@
-{
-    "Experience": [
+const experience = [
         {
+            "id": 2,
             "company": "Accenture",
-            "start": "August 2020",
+            "period" : {
+                "start": "August 2020",
+            },
             "Experience": [
                 {
                     "title" : "Analyst",
@@ -25,8 +27,11 @@
             ]
         }, 
         {
+            "id": 1,
             "company": "Other",
-            "start": "August 2020",
+            "period" : {
+                "start": "August 2020",
+            },
             "Experience": [
                 {
                     "title" : "Analyst",
@@ -39,5 +44,6 @@
                 }
             ]
         }
-    ]
-}
+    ];
+
+export default experience;
