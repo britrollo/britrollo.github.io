@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Root from './routes/root';
 import ErrorPage from "./routes/error-page.js";
+import Resume from "./routes/resume.js"
 // import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -10,7 +11,13 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
-  }
+    children: [
+      {
+        path: "/resume/",
+        element: <Resume />,
+      },
+    ],
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
