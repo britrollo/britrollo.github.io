@@ -1,161 +1,149 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import CssBaseline from '@mui/material/CssBaseline';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemButton from '@mui/material/ListItemButton';
+import PropTypes from 'prop-types';
+import { Tabs } from '@mui/base/Tabs';
+import { Tab, tabClasses } from '@mui/base/Tab';
+import { TabsList } from '@mui/base/TabsList';
+import {
+    Link,
+    matchPath,
+    useLocation,
+    Outlet,
+} from 'react-router-dom';
+import { styled } from '@mui/system';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
-import { Outlet } from "react-router-dom";
-
 import routes from '../config/routes';
+import { Collapse } from '@mui/material';
 
-const drawerWidth = 240;
+function useRouteMatch(patterns) {
+    const { pathname } = useLocation();
 
-const openedMixin = (theme) => ({
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-    }),
-    overflowX: 'hidden',
-});
+    for (let i = 0; i < patterns.length; i += 1) {
+        const pattern = patterns[i];
+        const possibleMatch = matchPath(pattern, pathname);
+        if (possibleMatch !== null) {
+            return possibleMatch;
+        }
+    }
 
-const closedMixin = (theme) => ({
-    transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: 'hidden',
-    width: `calc(${theme.spacing(7)} + 1px)`,
-    [theme.breakpoints.up('sm')]: {
-        width: `calc(${theme.spacing(9)} + 1px)`,
-    },
-});
+    return null;
+}
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-}));
-
-const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(open && {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    }),
-}));
-
-const Drawer = styled(MuiDrawer, {
-    shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(open && {
-        ...openedMixin(theme),
-        '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-    ...(!open && {
-        ...closedMixin(theme),
-        '& .MuiDrawer-paper': closedMixin(theme),
-    }),
-}));
-
-export default function MiniDrawer() {
-    const theme = useTheme();
-    const drawerOpenKey = 'drawerOpen';
-    const defaultOpen = localStorage.getItem(drawerOpenKey) === 'true';
-    const [open, setOpen] = React.useState(defaultOpen);
-
-    React.useEffect(() => {
-        localStorage.setItem(drawerOpenKey, open);
-    }, [open]);
-
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
+function MyTabs() {
+    // You need to provide the routes in descendant order.
+    // This means that if you have nested routes like:
+    // users, users/new, users/edit.
+    // Then the order should be ['users/add', 'users/edit', 'users'].
+    const routePaths = Object.keys(routes).map( text => routes[text].path);
+    const routeMatch = useRouteMatch(routePaths);
+    const currentTab = routeMatch?.pattern?.path;
 
     return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar position="fixed" open={open}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{
-                            marginRight: '36px',
-                            ...(open && { display: 'none' }),
-                        }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? (
-                            <ChevronRightIcon />
-                        ) : (
-                            <ChevronLeftIcon />
-                        )}
-                    </IconButton>
-                </DrawerHeader>
-                <Divider />
-                <List>
-                    {Object.keys(routes).map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton href={routes[text][0]}>
-                                <ListItemIcon>
-                                    {routes[text].length > 1 ? routes[text][1] : <ArrowRightIcon />}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
-            </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-                <DrawerHeader />
-                <Outlet />
-            </Box>
-        </Box>
+        <Tabs value={currentTab}>
+            <StyledTabsList>
+                {Object.keys(routes).map((text) => (
+                    <StyledTab value={routes[text].path} to={routes[text].path} slots={{ root: RouterLink }} key={text} aria-label={text}>
+                    {routes[text].icon ? routes[text].icon : <ArrowRightIcon />}
+                    <CollapseText in={routes[text].path === currentTab} orientation="horizontal">{text}</CollapseText>
+                    </StyledTab>
+                ))}
+            </StyledTabsList>
+            <Outlet />
+        </Tabs>
     );
 }
+
+export default function Root() {
+    return (
+        <div>
+            <MyTabs />
+        </div>
+    );
+}
+
+const green = {
+    50: '#ecf3e9',
+    100: '#d1e1ca',
+    200: '#b5ceaa',
+    300: '#9abc8a',
+    400: '#87ae73',
+    500: '#76a15d',
+    600: '#6b9254',
+    700: '#5f814a',
+    800: '#547042',
+    900: '#3e5231',
+};
+
+const grey = {
+    50: '#f6f8fa',
+    100: '#eaeef2',
+    200: '#d0d7de',
+    300: '#afb8c1',
+    400: '#8c959f',
+    500: '#6e7781',
+    600: '#57606a',
+    700: '#424a53',
+    800: '#32383f',
+    900: '#24292f',
+};
+
+const RouterLink = React.forwardRef(function RouterLink(props, ref) {
+    const { ownerState, ...other } = props;
+    return <Link {...other} ref={ref} />;
+});
+
+RouterLink.propTypes = {
+    ownerState: PropTypes.object.isRequired,
+};
+
+const StyledTab = styled(Tab)`
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  background-color: transparent;
+  padding: 10px 12px;
+  margin: 6px;
+  border: none;
+  border-radius: 7px;
+  display: flex;
+
+  &:hover {
+    background-color: ${green[400]};
+  }
+
+  &:focus {
+    color: #fff;
+    outline: 3px solid ${green[200]};
+  }
+
+  &.${tabClasses.selected} {
+    background-color: #fff;
+    color: ${green[600]};
+  }
+`;
+
+const StyledTabsList = styled(TabsList)(
+    ({ theme }) => `
+  background-color: ${green[500]};
+  border-radius: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  align-content: space-between;
+  box-shadow: 0px 4px 30px ${theme.palette.mode === 'dark' ? grey[900] : grey[200]};
+  `,
+);
+
+
+const CollapseText = styled(Collapse)(
+    ({ theme }) => `
+    justify-content: center;
+    display: flex;
+    flexDirection: column;
+    align-items: center;
+    padding: 5px;
+    `
+)

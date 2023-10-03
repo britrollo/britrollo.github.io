@@ -1,12 +1,25 @@
 import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 import SchoolIcon from '@mui/icons-material/School';
 import DataObjectIcon from '@mui/icons-material/DataObject';
+import HomeIcon from '@mui/icons-material/Home';
 
 const routes =  {
-    "Resume" : ["/resume/", <WorkHistoryIcon />],
-    "Education" : ["/education/", <SchoolIcon />],
-    "Skills" : ["/skills/", <DataObjectIcon />],
-    "HomePage": ["/"],
+    "": {
+        "path": "/",
+        "icon": <HomeIcon />
+    },
+    "Resume" : {
+        "path": "/resume/", 
+        "icon": <WorkHistoryIcon />,
+    },
+    "Education" : {
+        "path": "/education/", 
+        "icon": <SchoolIcon />
+    },
+    "Skills" : {
+        "path": "/skills/", 
+        "icon": <DataObjectIcon />
+    },
 };
 
 export default routes;
