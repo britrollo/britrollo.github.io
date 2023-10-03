@@ -8,8 +8,8 @@ const routes =  {
         "path": "/",
         "icon": <HomeIcon />
     },
-    "Resume" : {
-        "path": "/resume/", 
+    "Career" : {
+        "path": "/career/", 
         "icon": <WorkHistoryIcon />,
     },
     "Education" : {
