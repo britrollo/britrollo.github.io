@@ -1,3 +1,4 @@
+import { Card, CardContent, Typography } from '@mui/material';
 import React from 'react';
 
 
@@ -6,14 +7,16 @@ const Experience = (props) => {
     console.log(role);
     const industry = role.industry ? (" - " + role.industry) : ""
     return (
-        <div>
-            <h4>{role.title} {industry}</h4>
+        <Card> 
+            <CardContent>
+            <Typography gutterBottom variant="h5" component="div">{role.title} {industry}</Typography>
             <ul>
                 {role.accomplishments.map(point => (
                     <li>{point}</li>
                 ))}
             </ul>
-        </div>
+            </CardContent>
+        </Card>
     );
 };
 

@@ -7,6 +7,7 @@ import EducationRoute from './routes/education';
 import SkillsRoute from './routes/skills';
 // import reportWebVitals from './reportWebVitals';  
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Box } from '@mui/system';
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/resume/",
+        path: "/career/",
         element: <ResumeRoute />,
       },
       {
@@ -33,7 +34,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Box  sx={{ bgcolor: '#ebf1e7'}}>
+      <RouterProvider router={router} />
+    </Box>
   </React.StrictMode>
 );
 
