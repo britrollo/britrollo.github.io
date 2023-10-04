@@ -9,7 +9,7 @@ import {
     useLocation,
     Outlet,
 } from 'react-router-dom';
-import { styled } from '@mui/system';
+import { Container, styled } from '@mui/system';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 import routes from '../config/routes';
@@ -34,21 +34,21 @@ function MyTabs() {
     // This means that if you have nested routes like:
     // users, users/new, users/edit.
     // Then the order should be ['users/add', 'users/edit', 'users'].
-    const routePaths = Object.keys(routes).map( text => routes[text].path);
+    const routePaths = Object.keys(routes).map(text => routes[text].path);
     const routeMatch = useRouteMatch(routePaths);
     const currentTab = routeMatch?.pattern?.path;
 
     return (
-        <Tabs value={currentTab}>
+        <Tabs 
+        value={currentTab} >
             <StyledTabsList>
                 {Object.keys(routes).map((text) => (
                     <StyledTab value={routes[text].path} to={routes[text].path} slots={{ root: RouterLink }} key={text} aria-label={text}>
-                    {routes[text].icon ? routes[text].icon : <ArrowRightIcon />}
-                    <CollapseText in={routes[text].path === currentTab} orientation="horizontal">{text}</CollapseText>
+                        {routes[text].icon ? routes[text].icon : <ArrowRightIcon />}
+                        <CollapseText in={routes[text].path === currentTab} orientation="horizontal">{text}</CollapseText>
                     </StyledTab>
                 ))}
             </StyledTabsList>
-            <Outlet />
         </Tabs>
     );
 }
@@ -57,6 +57,9 @@ export default function Root() {
     return (
         <div>
             <MyTabs />
+            <Container >
+                <Outlet />
+            </Container>
         </div>
     );
 }
